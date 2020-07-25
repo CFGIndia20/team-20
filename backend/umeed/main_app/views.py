@@ -5,7 +5,9 @@ from rest_framework.permissions import AllowAny,IsAuthenticated
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from users.models import *
+from main_app.models import *
 from users.serializers import *
+from main_app.serializers import *
 
 @api_view(['POST'])
 def mark_attendance(request):
@@ -22,9 +24,6 @@ def view_attendance(request): #user path
 def post_update(request): #user path to update admins
     pass
 
-def profile(request):#return user profile
-    pass
-
 def stats(request): #return user stats to admin
     pass
 
@@ -32,13 +31,50 @@ def assign_task(request): #admin assigns a task
     pass
 
 def accept_task(request): #accept task (for user)
-    pass
+    u = request.user
+    us = UserProfile.objects.get(user_acc=u)
+    i = request.data.get('task_id')
+    t = ToDoTask.objects.get(id=i)
+    t.users_assigned.add(us)
+    t.save()
+    return Response({'status':'success','data':{'message':'Task Accepted'}}, status=HTTP_200_OK)
+    
 
 def reject_task(request): #reject task along with voice recording
-    pass
+    u = request.user
+    us = UserProfile.objects.get(user_acc=u)
+    i = request.data.get('task_id')
+    t = ToDoTask.objects.get(id=i)
+    t.users_assigned.remove(us)
+    t.save()
+    return Response({'status':'success','data':{'message':'Task Rejected'}}, status=HTTP_200_OK)
 
 def create_task(request): #manager creates a new task
-    pass
+    tname=request.data.get('t_name')
+    tdsc=request.data.get('t_dsc')
+    ToDoTask.objects.create(name=tname, description=tdsc, status='unassigned')
+    return Response({'status':'success','data':{'message':'Task Created'}}, status=HTTP_200_OK)
+
+def user_threshold(request): #bloack new users
+    i = request.data.get('task_id')
+    t = ToDoTask.objects.get(id=i)
+    t.status = 'assigned'
+    t.save()
+    return Response({'status':'success','data':{'message':'Task Already Assigned'}}, status=HTTP_200_OK)
+
+def fetch_unassigned(request):  #get all the unassigned tasks
+    tk = ToDoTask.objects.filter(status="unassigned")
+    if tk.exists():
+        #serialize the users
+        serializer = TaskSerializer(tk, many=True)
+        #return Response using rest_framework's response
+        return Response({'status':'success','data':{'message':serializer.data}})
+    
+    return Response({'status':'failure','data':{'message':'No Unassigned Task'}})
+
+
+
+
 
 @api_view(['POST'])
 def give_rating(request):

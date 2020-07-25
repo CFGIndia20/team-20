@@ -27,7 +27,7 @@ else:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['16317cf2ac13.ngrok.io','127.0.0.1','localhost']
 
 
 # Application definition

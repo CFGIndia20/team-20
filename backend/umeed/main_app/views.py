@@ -39,3 +39,11 @@ def user_register(request):
 
 def user_logout(request):
     pass
+
+"""
+Calculates the compensation to be given to women
+"""
+def CompensetaionView(request):
+    compensation = 200*rating*number_hours + attended_meets*100
+    return compensation
+    

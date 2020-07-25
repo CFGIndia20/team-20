@@ -78,5 +78,16 @@ def user_logout(request):
 
 
 
+def user_profile():
+    if request.method == "GET" :
+
+@api_view(['get'])
+def fetch_users(request):
+    #fetch all the user objects
+    user_details = User.objects.all()
+    #serialize the users
+    serializer = UserSerializer(user_details, many=True)
+    #return Response using rest_framework's response
+    return Response(serializer.data)
 
 

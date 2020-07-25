@@ -87,7 +87,7 @@ def fetch_users(request):
 # User Info
 @api_view(['POST'])
 def get_user_info(request):
-    dat=UserSerializer(request.user_acc).data
+    dat=UserSerializer(request.user).data
     return Response(data=dat,content_type='application/json')
 
 

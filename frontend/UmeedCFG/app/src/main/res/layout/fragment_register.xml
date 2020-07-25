@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:id="@+id/MainRegister"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/ivLogoRegister"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="112dp"
+            android:layout_marginTop="64dp"
+            android:layout_marginBottom="40dp"
+            android:src="@drawable/umeed_logo" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardViewRegister"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ivLogoRegister"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:elevation="8dp"
+            android:theme="@style/Theme.MaterialComponents.Light"
+            app:cardCornerRadius="8dp"
+            app:cardUseCompatPadding="true">
+
+            <RelativeLayout
+                android:id="@+id/rvRegister"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="16dp"
+                android:paddingTop="32dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="32dp">
+
+                <!--                    <TextView-->
+                <!--                        android:id="@+id/tvPrefix"-->
+                <!--                        android:layout_width="wrap_content"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:layout_below="@id/tvLogin"-->
+                <!--                        android:paddingLeft="8dp"-->
+                <!--                        android:paddingTop="10dp"-->
+                <!--                        android:paddingRight="4dp"-->
+                <!--                        android:text="+91"-->
+                <!--                        android:textColor="@color/colorPrimary"-->
+                <!--                        android:textSize="18dp" />-->
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvRegister"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="Register"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="28sp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvRegister"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    app:errorIconTint="@color/colorPrimary"
+                    app:prefixText="+91 "
+                    app:prefixTextColor="@color/lightGrey">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etMobileNumberRegister"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:hint="Mobile Number"
+                        android:inputType="number"
+                        android:longClickable="false"
+                        android:maxLength="10"
+                        android:paddingLeft="2dp"
+                        android:textColorHint="@color/colorPrimary" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/til3"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    app:errorIconTint="@color/colorPrimary"
+                    app:prefixTextColor="@color/lightGrey">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etPasswordRegister"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:hint="Password"
+                        android:inputType="textPassword"
+                        android:longClickable="false"
+                        android:maxLength="10"
+                        android:paddingLeft="2dp"
+                        android:textColorHint="@color/colorPrimary" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/til4"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    app:errorIconTint="@color/colorPrimary"
+                    app:prefixTextColor="@color/lightGrey">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etSkills"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:hint="Skills"
+                        android:inputType="textPassword"
+                        android:longClickable="false"
+                        android:maxLength="10"
+                        android:paddingLeft="2dp"
+                        android:textColorHint="@color/colorPrimary" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+                    android:id="@+id/btnProceedSignup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/til5"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/loading_button_background"
+                    android:text="REGISTER"
+                    android:textColor="@color/white"
+                    app:spinning_bar_color="@color/white"
+                    app:spinning_bar_padding="4dp"
+                    app:spinning_bar_width="3dp" />
+                <!--                <com.google.android.material.button.MaterialButton-->
+                <!--                    android:id="@+id/btnProceed"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_below="@id/til"-->
+                <!--                    android:insetTop="0dp"-->
+                <!--                    android:insetBottom="0dp"-->
+                <!--                    android:layout_marginTop="8dp"-->
+                <!--                    android:text="PROCEED" />-->
+            </RelativeLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:indeterminateTint="@color/colorPrimary"
+            android:visibility="gone" />
+
+
+    </RelativeLayout>
+
+</ScrollView>

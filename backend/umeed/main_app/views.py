@@ -41,6 +41,7 @@ def view_attendance(request): #admin path to check attendance overall of all mee
     return Response({'status': 'success', 'data': {'message': {'total':len(all_meetings),'attended':cnt}}}, status=HTTP_200_OK)
 
 def post_update(request): #user path to update admins
+
     i = request.data.get('task_id')
     t = ToDoTask.objects.get(id=i)
     p = DailyProgress.objects.get(task=t)
@@ -58,6 +59,18 @@ def get_progress(request):
     serializer = ProgressSerializer(p)
     return Response({'status': 'success', 'data': {'message': serializer.data}})
     
+
+def rate_post(request):
+    r = request.data.get('rate')
+    i = request.data.get('task_id')
+    u = request.user
+    us = UserProfile.objects.get(user_acc=u)
+    tn = ToDoTask.objects.get(id=i)
+    d = DailyProgress.objects.get(task=tn.name)
+    d.rating = r
+    d.save() 
+    return Response({'status':'success','data':{'message':'Rating Done'}}, status=HTTP_200_OK)
+
 
 def stats(request): #return user stats to admin
     pass
@@ -106,7 +119,6 @@ def fetch_unassigned(request):  #get all the unassigned tasks
         return Response({'status':'success','data':{'message':serializer.data}})
     
     return Response({'status':'failure','data':{'message':'No Unassigned Task'}})
-
 
 @api_view(['POST'])
 def rate_task(request):

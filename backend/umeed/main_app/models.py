@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from users.models import *
-# from django.core.validators import MaxValueValidator,MinValueValidator
+from django.core.validators import MaxValueValidator,MinValueValidator
 
 #status values are= unassigned, assigned, accepted, rejected, in_progress and completed
 #toNotify stores if anyone is to be notified
@@ -12,8 +12,9 @@ class ToDoTask(models.Model):
     toNotify=models.CharField(max_length=50,null=False)
     users_assigned=models.ManyToManyField(UserProfile)
     date_time = models.DateTimeField(auto_now_add=True)
-    completion_percentage=models.IntegerField(default=0)
-    task_quality=models.IntegerField(default=10) #rating out of 10
+
+    #completion_percentage=models.IntegerField(default=0,validators=[MaxValueValidator(100),MinValueValidator(0)])
+    
 # class Task(models.Model):
 #     task_name = models.CharField(null=False,max_length=20)
 #     task_dsc = models.CharField(null=False,max_length=100)
@@ -27,6 +28,7 @@ class Meeting(models.Model):
     date_time = models.DateTimeField(auto_now_add=True) 
 
 class DailyProgress(models.Model):
+    rating = models.IntegerField()
     date_time = models.DateTimeField(auto_now_add=True)
     task = models.OneToOneField(ToDoTask, on_delete=models.CASCADE)
     progress_text = models.TextField()

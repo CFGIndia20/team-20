@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from users.models import *
 
 class ToDoTask(models.Model):
-    status=models.TextChoices()
+    status=models.CharField(max_length=20) #status of the task
     description=models.TextField()
     pass
 

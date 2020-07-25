@@ -44,7 +44,17 @@ def view_attendance(request): #admin path to check attendance overall of all mee
 
 def post_update(request): #user path to update admins
     pass
-    
+
+def rate_post(request):
+    r = request.data.get('rate')
+    i = request.data.get('task_id')
+    u = request.user
+    us = UserProfile.objects.get(user_acc=u)
+    tn = ToDoTask.objects.get(id=i)
+    d = DailyProgress.objects.get(task=tn.name)
+    d.rating = r
+    d.save() 
+    return Response({'status':'success','data':{'message':'Rating Done'}}, status=HTTP_200_OK)
 
 def stats(request): #return user stats to admin
     pass
@@ -93,7 +103,6 @@ def fetch_unassigned(request):  #get all the unassigned tasks
         return Response({'status':'success','data':{'message':serializer.data}})
     
     return Response({'status':'failure','data':{'message':'No Unassigned Task'}})
-
 
 @api_view(['POST'])
 def rate_task(request):

@@ -70,10 +70,11 @@ def manager_logout(request):
 @api_view(['POST'])
 @permission_classes((AllowAny,))
 def user_logout(request):
-    request.user.auth_token.delete()
+    request.user.auth_token.delete() 
     logout(request)
     return Response()
 
+# Fetch All User profiles
 @api_view(['GET'])
 def fetch_users(request):
     #fetch all the user objects
@@ -82,5 +83,12 @@ def fetch_users(request):
     serializer = UserSerializer(user_details, many=True)
     #return Response using rest_framework's response
     return Response(serializer.data)
-    
+
+# User Info
+@api_view(['POST'])
+def get_user_info(request):
+    dat=UserSerializer(request.user_acc).data
+    return Response(data=dat,content_type='application/json')
+
+
 

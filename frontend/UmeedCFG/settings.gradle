@@ -1,0 +1,2 @@
+rootProject.name='UmeedCFG'
+include ':app'

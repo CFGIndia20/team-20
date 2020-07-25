@@ -20,7 +20,4 @@ class SuperManager(models.Model):
     image = models.ImageField(default='default.jpg', upload_to="",null=False)
     user_acc=models.OneToOneField(User,on_delete=models.CASCADE,null=False)
 
-class Task(models.Model):
-    task_name = models.CharField(null=False,max_length=20)
-    task_dsc = models.CharField(null=False,max_length=100)
-    task_img = models.ImageField(default='default.jpg', upload_to="",null=True)
+

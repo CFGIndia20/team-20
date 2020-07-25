@@ -99,5 +99,13 @@ def get_user_info(request):
     dat=UserSerializer(request.user).data
     return Response(data=dat,content_type='application/json')
 
+@csrf_exempt
+@api_view(['POST'])
+@permission_classes((AllowAny,))
+def task_create(request):
+    tname = request.data.get('t_name')
+    tdsc = request.data.get('t_dsc')
+    Task.objects.create(task_name="tname", task_dsc = "tdsc")
+    return Response({'success':'Registration successful'},status=HTTP_200_OK)
 
 

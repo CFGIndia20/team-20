@@ -5,6 +5,12 @@ from rest_framework.permissions import AllowAny,IsAuthenticated
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from users.models import *
+from users.serializers import *
+
+@api_view(['POST'])
+def mark_attendance(request):
+    user_id=request.data.get('phone')
+    pass
 # Create your views here.
 @api_view(['POST'])
 def check_attendance(request): #admin path
@@ -30,6 +36,13 @@ def accept_task(request): #accept task (for user)
 
 def reject_task(request): #reject task along with voice recording
     pass
+
+def create_task(request): #manager creates a new task
+    pass
+
+@api_view(['POST'])
+def give_rating(request):
+    return Response()
 
 """
 Calculates the compensation to be given to women

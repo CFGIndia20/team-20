@@ -11,6 +11,8 @@ class ToDoTask(models.Model):
     description=models.TextField()
     toNotify=models.CharField(max_length=50,null=False)
     users_assigned=models.ManyToManyField(UserProfile)
+    date_time = models.DateTimeField(auto_now_add=True)
+
     #completion_percentage=models.IntegerField(default=0,validators=[MaxValueValidator(100),MinValueValidator(0)])
     
 # class Task(models.Model):
@@ -28,5 +30,6 @@ class Meeting(models.Model):
 class DailyProgress(models.Model):
     rating = models.IntegerField()
     date_time = models.DateTimeField(auto_now_add=True)
-    text = models.TextField()
+    task = models.OneToOneField(ToDoTask, on_delete=models.CASCADE)
+    progress_text = models.TextField()
     image = models.ImageField(default='default.jpg', upload_to="", null=False)

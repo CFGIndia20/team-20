@@ -17,7 +17,7 @@
             android:layout_height="180dp"
             android:layout_alignParentStart="true"
             android:layout_marginStart="112dp"
-            android:layout_marginTop="64dp"
+            android:layout_marginTop="25dp"
             android:layout_marginBottom="40dp"
             android:src="@drawable/umeed_logo" />
 
@@ -67,10 +67,60 @@
                     android:textSize="28sp" />
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til3"
+                    android:id="@+id/name1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tvRegister"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    app:errorIconTint="@color/colorPrimary"
+                    app:prefixTextColor="@color/lightGrey">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etNameRegister"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:hint="First Name"
+                        android:inputType="text"
+                        android:longClickable="false"
+                        android:maxLength="10"
+                        android:paddingLeft="2dp"
+                        android:textColorHint="@color/colorPrimary" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/name2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/name1"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    app:errorIconTint="@color/colorPrimary"
+                    app:prefixTextColor="@color/lightGrey">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etLastNameRegister"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:hint="Last Name"
+                        android:inputType="text"
+                        android:longClickable="false"
+                        android:maxLength="10"
+                        android:paddingLeft="2dp"
+                        android:textColorHint="@color/colorPrimary" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/name1"
                     android:layout_centerHorizontal="true"
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
@@ -135,7 +185,32 @@
                         android:layout_height="wrap_content"
                         android:background="@color/white"
                         android:hint="Skills"
-                        android:inputType="textPassword"
+                        android:inputType="text"
+                        android:longClickable="false"
+                        android:maxLength="10"
+                        android:paddingLeft="2dp"
+                        android:textColorHint="@color/colorPrimary" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/til4"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    app:errorIconTint="@color/colorPrimary"
+                    app:prefixTextColor="@color/lightGrey">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etArea"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:hint="Area"
+                        android:inputType="text"
                         android:longClickable="false"
                         android:maxLength="10"
                         android:paddingLeft="2dp"
@@ -146,7 +221,7 @@
                     android:id="@+id/btnProceedSignup"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/til5"
+                    android:layout_below="@id/til6"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="8dp"
                     android:background="@drawable/loading_button_background"

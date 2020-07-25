@@ -20,7 +20,7 @@ def mark_attendance(request):
     m.save()
     return Response({'status': 'success', 'data': {'message': 'Attendence marked'}}, status=HTTP_200_OK)
 
-# Create your views here.
+
 @api_view(['POST'])
 def check_attendance(request): #admin path
     mi = request.data.get('meeting_id')
@@ -29,9 +29,7 @@ def check_attendance(request): #admin path
     m.save()
     return Response({'status': 'success', 'data': {'message': serializer.data}}, status=HTTP_200_OK)
 
-def view_progress(request): 
-    pass
-    
+
 def view_attendance(request): #admin path to check attendance overall of all meetings attended
     user_id=request.data.get('phone')
     all_meetings=Meetings.objects.all()
@@ -43,7 +41,24 @@ def view_attendance(request): #admin path to check attendance overall of all mee
     return Response({'status': 'success', 'data': {'message': {'total':len(all_meetings),'attended':cnt}}}, status=HTTP_200_OK)
 
 def post_update(request): #user path to update admins
-    pass
+
+    i = request.data.get('task_id')
+    t = ToDoTask.objects.get(id=i)
+    p = DailyProgress.objects.get(task=t)
+    txt = request.data.get('text')
+    p.progress_text = txt
+    img = request.FILES['img.jpg']
+    p.image = img
+    p.save()
+    return Response({'status': 'success', 'data': {'message': 'Progress posted'}}, status=HTTP_200_OK)
+
+def get_progress(request):
+    i = request.data.get('task_id')
+    t = ToDoTask.objects.get(id=i)
+    p = DailyProgress.objects.get(task=t)
+    serializer = ProgressSerializer(p)
+    return Response({'status': 'success', 'data': {'message': serializer.data}})
+    
 
 def rate_post(request):
     r = request.data.get('rate')
@@ -54,6 +69,7 @@ def rate_post(request):
     d.rating = r
     d.save() 
     return Response({'status':'success','data':{'message':'Rating Done'}}, status=HTTP_200_OK)
+
 
 def stats(request): #return user stats to admin
     pass

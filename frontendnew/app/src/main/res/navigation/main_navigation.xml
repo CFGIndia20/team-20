@@ -3,7 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/loginFragment">
+    app:startDestination="@+id/splashFragment">
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.example.umeed.splash.SplashFragment"
+        android:label="Splash"
+        tools:layout="@layout/fragment_splash">
+        <action
+            android:id="@+id/action_splashFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@layout/fragment_splash"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_splashFragment_to_dashBoardFragment"
+            app:destination="@id/dashBoardFragment" />
+    </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.umeed.login.LoginFragment"
@@ -37,15 +51,28 @@
         <action
             android:id="@+id/action_dashBoardFragment_to_managerFragment"
             app:destination="@id/managerFragment"
-            app:popUpTo="@id/dashBoardFragment" />
+            app:popUpTo="@id/dashBoardFragment"
+            app:popUpToInclusive="true"/>
         <action
             android:id="@+id/action_dashBoardFragment_to_taskDetailsFragment"
             app:destination="@id/taskDetailsFragment"
-            app:popUpTo="@id/dashBoardFragment" />
+            app:popUpTo="@id/dashBoardFragment"
+            app:popUpToInclusive="true"/>
         <action
             android:id="@+id/action_dashBoardFragment_to_experienceDetailsFragment"
             app:destination="@id/experienceDetailsFragment"
-            app:popUpTo="@id/dashBoardFragment" />
+            app:popUpTo="@id/dashBoardFragment"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_dashBoardFragment_to_profileFragment"
+            app:destination="@id/profileFragment"
+            app:popUpTo="@id/dashBoardFragment"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_dashBoardFragment_to_attendanceManagement"
+            app:destination="@id/attendanceManagement"
+            app:popUpTo="@id/dashBoardFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/managerFragment"
@@ -63,6 +90,37 @@
         android:name="com.example.umeed.ExperienceDetails.ExperienceFragment"
         android:label="ExperienceDetails"
         tools:layout="@layout/experience_details_fragment"></fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.umeed.profile.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/profile_details_fragment"
+        >
+        <argument
+            android:name="name"
+            app:argType="string" />
+        <argument
+            android:name="area"
+            app:argType="string" />
+        <argument
+            android:name="skills"
+            app:argType="string" />
+        <argument
+            android:name="compensation"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
+            android:name="image"
+            app:argType="string" />
+        <argument
+            android:name="attendance"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:name="com.example.umeed.attendace.ManagerAttendanceFragment"
+        android:id="@+id/attendanceManagement"
+        android:label="Attendance"
+        tools:layout="@layout/fragment_manager_attendance"></fragment>
 
 
 </navigation>

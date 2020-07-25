@@ -26,10 +26,14 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.umeed.MainActivity;
 import com.example.umeed.R;
- import com.github.mikephil.charting.charts.PieChart;
+import com.example.umeed.data.PrefManager;
+import com.example.umeed.data.model.response.ProfileDetailsResponseModel;
+import com.example.umeed.profile.ProfileViewModel;
+import com.github.mikephil.charting.charts.PieChart;
  import com.github.mikephil.charting.data.Entry;
  import com.github.mikephil.charting.data.PieData;
  import com.github.mikephil.charting.data.PieDataSet;
@@ -41,6 +45,8 @@ import java.util.ArrayList;
 
 import br.com.simplepass.loadingbutton.customViews.CircularProgressButton;
 
+import static androidx.constraintlayout.motion.widget.MotionScene.TAG;
+
 public class UserDashboardFragment extends Fragment implements NavigationView.OnNavigationItemSelectedListener{
 
     String[] tasks = {"Item 1", "Item 2", "Item 3"};
@@ -51,6 +57,8 @@ public class UserDashboardFragment extends Fragment implements NavigationView.On
     public NavigationView navigationDrawerView;
     private CircularProgressButton button;
     private CircularProgressButton experienceTestButton;
+    private CircularProgressButton profileButton;
+    private CircularProgressButton attendanceManagementButton;
 
     ListView dasboardListView;
     //    ArrayList<Entry> values = new ArrayList<>();
@@ -72,6 +80,8 @@ public class UserDashboardFragment extends Fragment implements NavigationView.On
         button=root.findViewById(R.id.managerTest);
         values.get(1).add(new Entry(35f,0));
         values.get(1).add(new Entry(65f,1));
+        profileButton=root.findViewById(R.id.profileDetails);
+        attendanceManagementButton=root.findViewById(R.id.attendanceManagement);
         experienceTestButton=root.findViewById(R.id.experienceTest);
         values.get(2).add(new Entry(50f,0));
         values.get(2).add(new Entry(50f,1));
@@ -102,8 +112,35 @@ public class UserDashboardFragment extends Fragment implements NavigationView.On
                 Navigation.findNavController(view).navigate(UserDashboardFragmentDirections.actionDashBoardFragmentToManagerFragment());
             }
         });
-//        set top level destinations to show drawer handle instead of back button
 
+        attendanceManagementButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(UserDashboardFragmentDirections.actionDashBoardFragmentToAttendanceManagement());
+            }
+        });
+//        set top level destinations to show drawer handle instead of back button
+        profileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ProfileViewModel profileViewModel=new ProfileViewModel();
+                Log.d(TAG, "onClick: "+PrefManager.getInstance().getAuthToken());
+                profileViewModel.getInfo(PrefManager.getInstance().getAuthToken()).observe(getViewLifecycleOwner(), new Observer<ProfileDetailsResponseModel>() {
+                    @Override
+                    public void onChanged(ProfileDetailsResponseModel profileDetailsResponseModel) {
+                        if(profileDetailsResponseModel!=null){
+                           // UserDashboardFragmentDirections.ActionDashBoardFragmentToProfileFragment action2=UserDashboardFragmentDirections
+                            UserDashboardFragmentDirections.ActionDashBoardFragmentToProfileFragment action = UserDashboardFragmentDirections.actionDashBoardFragmentToProfileFragment(profileDetailsResponseModel.getData().getMessage().getUserAcc().getFirstName(),profileDetailsResponseModel.getData().getMessage().getArea(),profileDetailsResponseModel.getData().getMessage().getSkills(),profileDetailsResponseModel.getData().getMessage().getImage(),"100");
+                            Navigation.findNavController(view).navigate(action);
+                        }else{
+                            Toast.makeText(getContext(),"No details",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+//                Navigation.findNavController(view).navigate(UserDashboardFragmentDirections.actionDashBoardFragmentToProfileFragment());
+            }
+        });
 
 //        setup side nav and fragment view
 //        side nav change listener

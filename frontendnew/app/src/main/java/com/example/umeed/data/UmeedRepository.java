@@ -8,8 +8,10 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.umeed.MyApplication;
 import com.example.umeed.data.model.request.LoginRequestModel;
+import com.example.umeed.data.model.request.ProfileRequestModel;
 import com.example.umeed.data.model.request.RegisterRequestModel;
 import com.example.umeed.data.model.response.LoginResponseModel;
+import com.example.umeed.data.model.response.ProfileDetailsResponseModel;
 import com.example.umeed.data.model.response.RegisterResponseModel;
 import com.example.umeed.data.network.APIInterface;
 import com.example.umeed.data.network.RetrofitService;
@@ -79,5 +81,28 @@ public class UmeedRepository {
             }
         });
         return loginResponseModelMutableLiveData;
+    }
+
+    public LiveData<ProfileDetailsResponseModel> getInfo(String token){
+        MutableLiveData<ProfileDetailsResponseModel> profileDetailsResponseModelMutableLiveData=new MutableLiveData<>();
+        apiInterface.getInfo(token).enqueue(new Callback<ProfileDetailsResponseModel>() {
+            @Override
+            public void onResponse(Call<ProfileDetailsResponseModel> call, Response<ProfileDetailsResponseModel> response) {
+                if(response.code()==500){
+                    profileDetailsResponseModelMutableLiveData.setValue(null);
+                }else{
+                    profileDetailsResponseModelMutableLiveData.setValue(response.body());
+                    Log.d(TAG, "onResponse: " + new Gson().toJson(response.body()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ProfileDetailsResponseModel> call, Throwable t) {
+                Log.d(TAG,"onResponse: "+t);
+                profileDetailsResponseModelMutableLiveData.setValue(null);
+
+            }
+        });
+        return profileDetailsResponseModelMutableLiveData;
     }
 }

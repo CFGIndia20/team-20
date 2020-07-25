@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <androidx.appcompat.widget.Toolbar
+
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
@@ -13,10 +14,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
     </androidx.appcompat.widget.Toolbar>
-
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/side_nav_view"
         android:layout_width="wrap_content"
+        app:itemShapeFillColor="@color/colorAccent"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
@@ -33,6 +34,7 @@
 
         </LinearLayout>
     </com.google.android.material.navigation.NavigationView>
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -67,7 +69,25 @@
                     android:id="@+id/experienceTest"
                     android:layout_below="@id/managerTest"
                     android:layout_marginTop="10dp"
-                    android:text="Experience TEST"
+                    android:text="Experience"
+                    android:layout_centerHorizontal="true"
+                    ></br.com.simplepass.loadingbutton.customViews.CircularProgressButton>
+                <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/profileDetails"
+                    android:layout_below="@id/experienceTest"
+                    android:layout_marginTop="10dp"
+                    android:text="Profile"
+                    android:layout_centerHorizontal="true"
+                    ></br.com.simplepass.loadingbutton.customViews.CircularProgressButton>
+                <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/attendanceManagement"
+                    android:layout_below="@id/profileDetails"
+                    android:layout_marginTop="10dp"
+                    android:text="Profile"
                     android:layout_centerHorizontal="true"
                     ></br.com.simplepass.loadingbutton.customViews.CircularProgressButton>
 

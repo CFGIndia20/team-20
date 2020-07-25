@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
 import com.example.umeed.R;
+import com.example.umeed.data.PrefManager;
 import com.example.umeed.data.model.response.LoginResponseModel;
 import com.example.umeed.data.model.response.RegisterResponseModel;
 import com.example.umeed.register.RegisterFragment;
@@ -74,6 +75,8 @@ public class LoginFragment extends Fragment {
                                     Toast.makeText(getContext(), loginResponseModel.getData().getMessage(), Toast.LENGTH_SHORT).show();
                                 } else {
                                     Navigation.findNavController(view).navigate(LoginFragmentDirections.actionLoginFragmentToDashBoardFragment());
+                                    PrefManager.getInstance().setAuthToken(loginResponseModel.getData().getMessage());
+                                    PrefManager.getInstance().setLoggedIn(true);
                                     Toast.makeText(getContext(), loginResponseModel.getData().getMessage(), Toast.LENGTH_SHORT).show();
                                 }
 

@@ -9,10 +9,11 @@ class UserProfile(models.Model):
     skills= models.TextField(null=False)
 
 class Manager(models.Model):
-    phn_number = models.CharField(max_length=12,null=False)
-    image = models.ImageField(default='default.jpg', upload_to="",null=False)
+    phn_number = models.CharField(max_length=12,null=True)
+    image = models.ImageField(default='default.jpg', upload_to="",null=True)
     area = models.CharField(null=False,max_length=100)
     user_acc=models.OneToOneField(User,on_delete=models.CASCADE,null=False)
+    unset=models.BooleanField(default=True) #check if profile is filled
 
 class SuperManager(models.Model):
     phn_number = models.CharField(max_length=12,null=False)

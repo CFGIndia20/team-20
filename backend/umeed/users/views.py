@@ -24,22 +24,26 @@ def user_login(request): #login a user
     passw=request.data.get('password')
     u=authenticate(username=phno,password=passw)
     if not u:
-        return Response({'error':'wrong username or password'},status=HTTP_400_BAD_REQUEST)
+        return Response({'status':'failure','data':{'message':'wrong username or password'}},status=HTTP_400_BAD_REQUEST)
     token,x=Token.objects.get_or_create(user=u)
-    return Response({'auth_token':token.key},status=HTTP_200_OK)
+    return Response({'status':'failure','data':{'message':token.key}},status=HTTP_200_OK)
 
 @csrf_exempt
 @api_view(['POST'])
 @permission_classes((AllowAny,))
 def user_register(request):
+    first_name=request.data.get('first_name')
+    last_name=request.data.get('last_name')
     phno=request.data.get('phone')
     passw=request.data.get('password')
     skills=request.data.get('skills')
     area=request.data.get('area')
-    user_obj=User.objects.create_user(username=phno,password=passw)
+    if User.objects.filter(username=phno).exists():
+        return Response({'status':'failure','data':{'message':'Phone number already exists'}},status=HTTP_400_BAD_REQUEST)
+    user_obj=User.objects.create_user(username=phno,password=passw,first_name=first_name,last_name=last_name)
     user_obj.save()
     UserProfile.objects.create(user_acc=user_obj,skills=skills,area=area)
-    return Response({'success':'Registration successful'},status=HTTP_200_OK)
+    return Response({'status':'success','data':{'message':'Registration Successful'}},status=HTTP_200_OK)
 
 @csrf_exempt
 @api_view(['POST'])
@@ -49,23 +53,30 @@ def manager_login(request):
     passw=request.data.get('password')
     u=authenticate(username=uname,password=passw)
     if not u:
-        return Response({'error':'wrong username or password'},status=HTTP_400_BAD_REQUEST)
-    return Response({'status':'success'},status=HTTP_200_OK)
+        return Response({'status':'failure','data':{'message':'wrong username or password'}},status=HTTP_400_BAD_REQUEST)
+    linked_manager_obj=Manager.objects.get(user_acc=u)
+    profile_status="Completed"
+    if linked_manager_obj.unset==True:
+        profile_status="Incomplete"
+    return Response({'status':'success','data':{'message':profile_status}},status=HTTP_200_OK)
 
 @csrf_exempt
 @api_view(['POST'])
 @permission_classes((AllowAny,))
 def manager_register(request):
-    uname=request.data.get('username')
-    passw=request.data.get('password')
-    firstname=request.data.get('first_name')
-    lastname=request.data.get('last_name')
-    email=request.data.get('email')
-    phone=request.data.get('phone')
-    area=request.data.get('area')
-    user_obj=User.objects.create_user(username=uname,password=passw,first_name=firstname,last_name=lastname,email=email)
-    Manager.objects.create(area=area,user_acc=user_obj,phn_number=phone)
-    return Response({'status':'success'},status=HTTP_200_OK)
+    u=request.user
+    new_passw=request.data.get('password')
+    u.set_password(new_passw)
+    u.first_name==request.data.get('first_name')
+    u.last_name=request.data.get('last_name')
+    u.email=request.data.get('email')
+    linked_manager_obj=Manager.objects.get(user_acc=u)
+    linked_manager_obj.phone=request.data.get('phone')
+    linked_manager_obj.area=request.data.get('area')
+    linked_manager_obj.unset=False
+    linked_manager_obj.save()
+    u.save()
+    return Response({'status':'success','data':{'message':'Completed'}},status=HTTP_200_OK)
 
 @csrf_exempt
 @api_view(['POST'])
@@ -73,7 +84,7 @@ def manager_register(request):
 def manager_logout(request):
     request.user.auth_token.delete()
     logout(request)
-    return Response()
+    Response({'status':'success','data':{'message':'Logged out'}},status=HTTP_200_OK)
 
 @csrf_exempt
 @api_view(['POST'])
@@ -81,7 +92,7 @@ def manager_logout(request):
 def user_logout(request):
     request.user.auth_token.delete() 
     logout(request)
-    return Response()
+    Response({'status':'success','data':{'message':'Logged out'}},status=HTTP_200_OK)
 
 # Fetch All User profiles
 @api_view(['GET'])
@@ -91,13 +102,13 @@ def fetch_users(request):
     #serialize the users
     serializer = UserSerializer(user_details, many=True)
     #return Response using rest_framework's response
-    return Response(serializer.data)
+    return Response({'status':'success','data':{'message':serializer.data}})
 
 # User Info
 @api_view(['POST'])
 def get_user_info(request):
-    dat=UserSerializer(request.user).data
-    return Response(data=dat,content_type='application/json')
+    dat=UserSerializer(UserProfile.objects.get(user_acc=request.user)).data
+    return Response({'status':'success','data':{'message':dat}})
 
 
 

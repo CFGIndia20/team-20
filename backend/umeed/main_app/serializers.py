@@ -8,3 +8,13 @@ class TaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = ToDoTask
         fields = '__all__'
+
+
+class ProgressSerializer(serializers.ModelSerializer):
+    task = TaskSerializer()
+    class Meta:
+        model = DailyProgress
+        fields = '__all__'
+
+
+    

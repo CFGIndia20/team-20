@@ -20,7 +20,7 @@ def mark_attendance(request):
     m.save()
     return Response({'status': 'success', 'data': {'message': 'Attendence marked'}}, status=HTTP_200_OK)
 
-# Create your views here.
+
 @api_view(['POST'])
 def check_attendance(request): #admin path
     mi = request.data.get('meeting_id')
@@ -29,9 +29,7 @@ def check_attendance(request): #admin path
     m.save()
     return Response({'status': 'success', 'data': {'message': serializer.data}}, status=HTTP_200_OK)
 
-def view_progress(request): 
-    pass
-    
+
 def view_attendance(request): #admin path to check attendance overall of all meetings attended
     user_id=request.data.get('phone')
     all_meetings=Meetings.objects.all()
@@ -43,8 +41,35 @@ def view_attendance(request): #admin path to check attendance overall of all mee
     return Response({'status': 'success', 'data': {'message': {'total':len(all_meetings),'attended':cnt}}}, status=HTTP_200_OK)
 
 def post_update(request): #user path to update admins
-    pass
+
+    i = request.data.get('task_id')
+    t = ToDoTask.objects.get(id=i)
+    p = DailyProgress.objects.get(task=t)
+    txt = request.data.get('text')
+    p.progress_text = txt
+    img = request.FILES['img.jpg']
+    p.image = img
+    p.save()
+    return Response({'status': 'success', 'data': {'message': 'Progress posted'}}, status=HTTP_200_OK)
+
+def get_progress(request):
+    i = request.data.get('task_id')
+    t = ToDoTask.objects.get(id=i)
+    p = DailyProgress.objects.get(task=t)
+    serializer = ProgressSerializer(p)
+    return Response({'status': 'success', 'data': {'message': serializer.data}})
     
+
+def rate_post(request):
+    r = request.data.get('rate')
+    i = request.data.get('task_id')
+    u = request.user
+    tn = ToDoTask.objects.get(id=i)
+    d = DailyProgress.objects.get(task=tn.name)
+    d.rating = r
+    d.save() 
+    return Response({'status':'success','data':{'message':'Rating Done'}}, status=HTTP_200_OK)
+
 
 def stats(request): #return user stats to admin
     pass
@@ -94,15 +119,21 @@ def fetch_unassigned(request):  #get all the unassigned tasks
     
     return Response({'status':'failure','data':{'message':'No Unassigned Task'}})
 
-
 @api_view(['POST'])
 def rate_task(request):
-    return Response()
+    i = request.data.get('task_id')
+    t = ToDoTask.objects.get(id=i)
+    t.rating = request.data.get('rate')
+    t.save()
+    return Response({'status':'success','data':{'message':'Task Rated'}})
 
 """
 Calculates the compensation to be given to women
 """
 def CompensetaionView(request):
-    compensation = 200*rating*number_hours + attended_meets*100
-    return compensation
+    i = request.data.get('task_id')
+    t = ToDoTask.objects.get(id=i)
+    t.compensation = request.data.get('compensation')
+    t.save()
+    return Response({'status':'success','data':{'message':'Task Compensation'}})
     

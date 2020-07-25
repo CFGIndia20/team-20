@@ -10,6 +10,7 @@ urlpatterns = [
     path('manager_login',manager_login),
     path('user_logout',user_logout),
     path('manager_reset',manager_register),
+    path('manager_logout',manager_logout),
     # path('user_logout/',edit_query),
     # path('manager_logout',create_query),
 ]

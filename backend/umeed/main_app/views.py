@@ -121,12 +121,19 @@ def fetch_unassigned(request):  #get all the unassigned tasks
 
 @api_view(['POST'])
 def rate_task(request):
-    return Response()
+    i = request.data.get('task_id')
+    t = ToDoTask.objects.get(id=i)
+    t.rating = request.data.get('rate')
+    t.save()
+    return Response({'status':'success','data':{'message':'Task Rated'}})
 
 """
 Calculates the compensation to be given to women
 """
 def CompensetaionView(request):
-    compensation = 200*rating*number_hours + attended_meets*100
-    return compensation
+    i = request.data.get('task_id')
+    t = ToDoTask.objects.get(id=i)
+    t.compensation = request.data.get('compensation')
+    t.save()
+    return Response({'status':'success','data':{'message':'Task Compensation'}})
     

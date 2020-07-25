@@ -18,3 +18,7 @@ class Meeting(models.Model):
     pass
 
 
+class DailyProgress(models.Model):
+    date_time = models.DateTimeField(auto_now_add=True)
+    text = models.TextField()
+    image = models.ImageField(default='default.jpg', upload_to="", null=False)

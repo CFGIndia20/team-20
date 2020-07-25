@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/loginFragment">
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.umeed.login.LoginFragment"
+        android:label="Login"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_loginFragment_to_dashBoardFragment"
+            app:destination="@id/dashBoardFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.example.umeed.register.RegisterFragment"
+        android:label="Register"
+        tools:layout="@layout/fragment_register">
+    </fragment>
+    <fragment
+        android:id="@+id/dashBoardFragment"
+        android:name="com.example.umeed.dashboard.UserDashboardFragment"
+        android:label="Dashboard"
+        tools:layout="@layout/fragment_user_dashboard">
+        <action
+            android:id="@+id/action_dashBoardFragment_to_managerFragment"
+            app:destination="@id/managerFragment"
+            app:popUpTo="@id/dashBoardFragment" />
+        <action
+            android:id="@+id/action_dashBoardFragment_to_taskDetailsFragment"
+            app:destination="@id/taskDetailsFragment"
+            app:popUpTo="@id/dashBoardFragment" />
+        <action
+            android:id="@+id/action_dashBoardFragment_to_experienceDetailsFragment"
+            app:destination="@id/experienceDetailsFragment"
+            app:popUpTo="@id/dashBoardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/managerFragment"
+        android:name="com.example.umeed.manager_user.ManagerFragment"
+        android:label="Manager"
+        tools:layout="@layout/fragment_manager_user"
+        ></fragment>
+    <fragment
+        android:id="@+id/taskDetailsFragment"
+        android:name="com.example.umeed.task_details.TaskDetailsFragment"
+        android:label="TaskDetails"
+        tools:layout="@layout/fragment_task_details"></fragment>
+    <fragment
+        android:id="@+id/experienceDetailsFragment"
+        android:name="com.example.umeed.ExperienceDetails.ExperienceFragment"
+        android:label="ExperienceDetails"
+        tools:layout="@layout/experience_details_fragment"></fragment>
+
+
+</navigation>

@@ -7,6 +7,9 @@ Team*.zip
 frontend/UmeedCFG/.idea/misc.xml
 frontend/UmeedCFG/.idea/jarRepositories.xml
 frontend/UmeedCFG/gradle/wrapper/gradle-wrapper.properties
+frontendnew/build.gradle
+frontendnew/settings.gradle
+frontendnew/gradle
 
 
 # Django #

@@ -49,7 +49,6 @@ def rate_post(request):
     r = request.data.get('rate')
     i = request.data.get('task_id')
     u = request.user
-    us = UserProfile.objects.get(user_acc=u)
     tn = ToDoTask.objects.get(id=i)
     d = DailyProgress.objects.get(task=tn.name)
     d.rating = r

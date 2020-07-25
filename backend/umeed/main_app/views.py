@@ -11,12 +11,11 @@ from main_app.serializers import *
 
 @api_view(['POST'])
 def mark_attendance(request):
-    user_id=request.data.get('phone')
     al = request.data.get('attendence_list')
     mi = request.data.get('meeting_id')
     m = Meeting.objects.get(id=mi)
     for u in al:
-        us = UserProfile.objects.get(user_acc.username=u)
+        us = UserProfile.objects.get(user_acc__username=u)
         m.attended_users.add(us)
     m.save()
     return Response({'status': 'success', 'data': {'message': 'Attendence marked'}}, status=HTTP_200_OK)
@@ -31,13 +30,21 @@ def check_attendance(request): #admin path
     return Response({'status': 'success', 'data': {'message': serializer.data}}, status=HTTP_200_OK)
 
 def view_progress(request): 
-    
-    
-def view_attendance(request): #user path
     pass
+    
+def view_attendance(request): #admin path to check attendance overall of all meetings attended
+    user_id=request.data.get('phone')
+    all_meetings=Meetings.objects.all()
+    u=UserProfile.objects.get(user_acc__username=user_id)
+    cnt=0
+    for m in all_meetings:
+        if u in m.attended_users:
+            cnt+=1
+    return Response({'status': 'success', 'data': {'message': {'total':len(all_meetings),'attended':cnt}}}, status=HTTP_200_OK)
 
 def post_update(request): #user path to update admins
     pass
+    
 
 def stats(request): #return user stats to admin
     pass
@@ -89,7 +96,7 @@ def fetch_unassigned(request):  #get all the unassigned tasks
 
 
 @api_view(['POST'])
-def give_rating(request):
+def rate_task(request):
     return Response()
 
 """

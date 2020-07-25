@@ -12,12 +12,27 @@ from main_app.serializers import *
 @api_view(['POST'])
 def mark_attendance(request):
     user_id=request.data.get('phone')
-    pass
+    al = request.data.get('attendence_list')
+    mi = request.data.get('meeting_id')
+    m = Meeting.objects.get(id=mi)
+    for u in al:
+        us = UserProfile.objects.get(user_acc.username=u)
+        m.attended_users.add(us)
+    m.save()
+    return Response({'status': 'success', 'data': {'message': 'Attendence marked'}}, status=HTTP_200_OK)
+
 # Create your views here.
 @api_view(['POST'])
 def check_attendance(request): #admin path
-    pass
+    mi = request.data.get('meeting_id')
+    m = Meeting.objects.get(id=mi)
+    serializer = UserSerializer(m.attended_users, many=True)
+    m.save()
+    return Response({'status': 'success', 'data': {'message': serializer.data}}, status=HTTP_200_OK)
 
+def view_progress(request): 
+    
+    
 def view_attendance(request): #user path
     pass
 
@@ -71,9 +86,6 @@ def fetch_unassigned(request):  #get all the unassigned tasks
         return Response({'status':'success','data':{'message':serializer.data}})
     
     return Response({'status':'failure','data':{'message':'No Unassigned Task'}})
-
-
-
 
 
 @api_view(['POST'])

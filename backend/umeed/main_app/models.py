@@ -3,10 +3,10 @@ from django.contrib.auth.models import User
 from users.models import *
 
 class ToDoTask(models.Model):
-    status=models.CharField(max_length=20) #status of the task
+    status=models.CharField(max_length=20,null=False) #status of the task
     description=models.TextField()
-    pass
-
+    toNotify=models.CharField(max_length=50,null=False)
+    assigned=models.OneToOneField(UserProfile,on_delete=models.SET_NULL,null=True)
 
 """
 Model to keep track of attended users

@@ -8,7 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.permissions import AllowAny,IsAuthenticated
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
-from rest_framework.serializers import UserSerializer
+from users.serializers import UserSerializer
 
 @csrf_exempt
 @api_view(['POST'])
@@ -38,7 +38,7 @@ def user_register(request):
     area=request.data.get('area')
     user_obj=User.objects.create_user(username=phno,password=passw)
     user_obj.save()
-    UserProfile.objects.create(user_acc=user_obj,phn_number=phno,skills=skills,area=area)
+    UserProfile.objects.create(user_acc=user_obj,skills=skills,area=area)
     return Response({'success':'Registration successful'},status=HTTP_200_OK)
 
 @csrf_exempt
@@ -87,7 +87,7 @@ def user_logout(request):
 @api_view(['GET'])
 def fetch_users(request):
     #fetch all the user objects
-    user_details = User.objects.all()
+    user_details = UserProfile.objects.all()
     #serialize the users
     serializer = UserSerializer(user_details, many=True)
     #return Response using rest_framework's response

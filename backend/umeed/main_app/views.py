@@ -1,6 +1,12 @@
-from django.shortcuts import render
-
+from rest_framework.decorators import api_view,permission_classes
+from rest_framework.status import HTTP_400_BAD_REQUEST,HTTP_404_NOT_FOUND,HTTP_200_OK
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.permissions import AllowAny,IsAuthenticated
+from rest_framework.authtoken.models import Token
+from rest_framework.response import Response
+from users.models import *
 # Create your views here.
+@api_view(['POST'])
 def check_attendance(request): #admin path
     pass
 
@@ -23,21 +29,6 @@ def accept_task(request): #accept task (for user)
     pass
 
 def reject_task(request): #reject task along with voice recording
-    pass
-
-def admin_login(request):
-    pass
-
-def admin_logout(request):
-    pass
-
-def user_login(request):
-    pass
-
-def user_register(request):
-    pass
-
-def user_logout(request):
     pass
 
 """

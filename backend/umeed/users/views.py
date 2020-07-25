@@ -8,6 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.permissions import AllowAny,IsAuthenticated
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
+from rest_framework.serializers import UserSerializer
 
 @csrf_exempt
 @api_view(['POST'])
@@ -78,9 +79,25 @@ def manager_logout(request):
 @api_view(['POST'])
 @permission_classes((AllowAny,))
 def user_logout(request):
-    request.user.auth_token.delete()
+    request.user.auth_token.delete() 
     logout(request)
     return Response()
+
+# Fetch All User profiles
+@api_view(['GET'])
+def fetch_users(request):
+    #fetch all the user objects
+    user_details = User.objects.all()
+    #serialize the users
+    serializer = UserSerializer(user_details, many=True)
+    #return Response using rest_framework's response
+    return Response(serializer.data)
+
+# User Info
+@api_view(['POST'])
+def get_user_info(request):
+    dat=UserSerializer(request.user).data
+    return Response(data=dat,content_type='application/json')
 
 
 

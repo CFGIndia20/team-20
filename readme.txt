@@ -32,5 +32,29 @@ In order to use a manager account, it need to be created by a superuser only. Si
 4. This is then linked to a manager user account.
 5. After following these steps the manager account can be used directly from the mobile app.
 
+The android application by the name 'Umeed' has been developed by us made on Android Studio using Java. The android app consists of the following modules of functionality as specified in the code using a Navigation Architecture by Android (MVC-like architecture). The code has been divided into :
+
+i) data - which has all the request and response models for the API Integration using Retrofit Service. The Preference Manager Class to cache/save all the data which will be required further ahead and the OkHTTP 2.0 library which has been used along with Retrofit.
+ii)models - These are the View Models for the data definition along with the constructors mentioned for easy user/developer understanding. 
+iii) ui -All the designs made in XML integrated with the Java Classes along with the View Model Providers for displaying the data obtained from (i) above.
+
+The modules developed are mentioned below:
+i) attendance : For individual attendance tracking and collective individual tracking by the manager who can log into the application
+ii) dashboard : For displaying the brief of the tasks assigned to the user for that particular week along with progress bar representation for better data interpretation
+iii) Experience Details : For mentioning and viewing the experiences of the tasks done previously to show the rigorous hardships also faced at times
+iv)login and register - basic easy-to-understand authentication pages
+v) manager_user - For displaying all the users which come under a manager and her area
+vi) meeting - for creation and assignment of meetings
+vii) profile - for displaying the user details along with compensation, attendance and skills equipped with 
+viii) task_details - a detailed task progression displayed in order to keep a level-1 check allowing for a daily upload picture option (backend integration not done for the same due to time constraints)
+
+For running the application :
+1) A JRE would be required along with an SDK for Android for development purpose
+2) A gradle version of 3.6.1+ is required
+3) The minimum SDK version required would be 21 which is Android 5+, so 94.1% of the phones can have access to the app
+4) There is no external data being accessed,so the application is free from such threats
+5) Android Studio with the proper gradle configuration would be enough to go ahead and access the application
+
 Final Note: All endpoints other than login and signup endpoints are protected and require an authentication header with a auth token  which is recieved as a response on successfully logging in.
+
 

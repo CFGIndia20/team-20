@@ -9,7 +9,7 @@ A simple and minimalistic Android application for Women associated with Umeed NG
 
 The web app is also hosted temporarily on ngrok, but may not be availabe at the time of testing because the host name changes on each execution. At the time of testing, the server is hosted on 96275e0db8c3.ngrok.io. This is added to the allowed hosts in settings.py as well. If a new test server is to be hosted, the instructions for this are:-
 
-1. Download ngrok executable from https://ngrok.com/.Ngrok creates a secure tunnel to localhost can can be accessed by the mobile frontend application. 
+1. Download ngrok executable from https://ngrok.com/. Ngrok creates a secure tunnel to localhost can can be accessed by the mobile frontend application. 
 2. Ngrox can then be made to tunnel to the port on which the django server is running by executing ./ngrok -http {port_number}.
 3. The ngrok hostname must then be added to the allowed hostes list in the settings.py file.
 4. The server is now started using the command python manage.py runserver

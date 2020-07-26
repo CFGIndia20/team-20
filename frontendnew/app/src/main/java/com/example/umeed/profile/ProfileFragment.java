@@ -51,6 +51,7 @@ public class ProfileFragment extends Fragment {
         String area1=ProfileFragmentArgs.fromBundle(getArguments()).getArea();
         String skill1=ProfileFragmentArgs.fromBundle(getArguments()).getSkills();
         String imageLink=ProfileFragmentArgs.fromBundle(getArguments()).getImage();
+        String textAttendance=ProfileFragmentArgs.fromBundle(getArguments()).getAttendance();
         ProfileViewModel profileViewModel=new ProfileViewModel();
         profileViewModel.getInfo(PrefManager.getInstance().getAuthToken()).observe(getViewLifecycleOwner(), new Observer<ProfileDetailsResponseModel>() {
             @Override
@@ -60,7 +61,7 @@ public class ProfileFragment extends Fragment {
                     Uri uri= Uri.parse(imageLink);
                     circleImageView.setImageResource(R.drawable.umeed_logo);
                     profileCompensationTextView.setText("1000");
-                    profileAttendanceTextView.setText("85%");
+                    profileAttendanceTextView.setText(textAttendance);
                     skills.setText(skill1);
                     area.setText(area1);
                 }

@@ -24,74 +24,116 @@
         app:headerLayout="@layout/side_nav_header"
         app:menu="@menu/side_nav">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:background="@color/colorPrimary"
-            android:clickable="true"
-            android:orientation="vertical">
+        <!--        <LinearLayout-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_gravity="bottom"-->
+        <!--            android:background="@color/colorPrimary"-->
+        <!--            android:clickable="true"-->
+        <!--            android:orientation="vertical">-->
 
-        </LinearLayout>
+        <!--        </LinearLayout>-->
     </com.google.android.material.navigation.NavigationView>
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
 
-            <RelativeLayout
-                android:id="@+id/Main"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/white">
-<!--                <androidx.recyclerview.widget.RecyclerView-->
-<!--                    android:id="@+id/dashboardList"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    />-->
-                <ListView
-                    android:id="@+id/dashboardListView"
-                    android:layout_width="match_parent"
-                    android:layout_height="400dp"
+        <!--            <ScrollView-->
+        <!--                android:id="@+id/Main"-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="0dp"-->
+        <!--                android:layout_weight="10"-->
+        <!--                android:background="@color/white">-->
+
+        <ListView
+            android:layout_weight="10"
+            android:layout_margin="30dp"
+            android:id="@+id/dashboardListView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+        <!--            </ScrollView>-->
+        <LinearLayout
+            android:layout_weight="1"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:background="@color/colorAccent"
+                    android:id="@+id/managerTest"
+                    android:text="Manager VIEW"
+                    android:layout_margin="5dp"
                     />
                 <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/managerTest"
-                    android:layout_below="@id/dashboardListView"
-                    android:text="Manager TEST"
-                    android:layout_centerHorizontal="true"
-                    ></br.com.simplepass.loadingbutton.customViews.CircularProgressButton>
+                    android:id="@+id/attendanceManagement"
+                    android:padding="10dp"
+                    android:background="@color/colorAccent"
+                    android:text="Attendance"
+                    android:layout_margin="5dp"
+                    />
                 <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/experienceTest"
-                    android:layout_below="@id/managerTest"
-                    android:layout_marginTop="10dp"
-                    android:text="Experience"
-                    android:layout_centerHorizontal="true"
-                    ></br.com.simplepass.loadingbutton.customViews.CircularProgressButton>
+                    android:id="@+id/createMeeting"
+                    android:padding="10dp"
+                    android:text="CREATE MEETING"
+                    android:background="@color/colorAccent"
+                    android:layout_margin="5dp"
+                    />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
                 <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/profileDetails"
-                    android:layout_below="@id/experienceTest"
-                    android:layout_marginTop="10dp"
+                    android:background="@color/colorAccent"
+                    android:padding="10dp"
                     android:text="Profile"
-                    android:layout_centerHorizontal="true"
-                    ></br.com.simplepass.loadingbutton.customViews.CircularProgressButton>
+                    android:layout_margin="5dp"
+                    />
                 <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/attendanceManagement"
-                    android:layout_below="@id/profileDetails"
-                    android:layout_marginTop="10dp"
-                    android:text="Profile"
-                    android:layout_centerHorizontal="true"
-                    ></br.com.simplepass.loadingbutton.customViews.CircularProgressButton>
+                    android:id="@+id/experienceTest"
+                    android:padding="10dp"
+                    android:text="Experience"
+                    android:background="@color/colorAccent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="5dp"
+                    />
+                <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/getMeetings"
+                    android:padding="10dp"
+                    android:background="@color/colorAccent"
+                    android:text="ALL MEETINGS"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="5dp"
+                    />
+            </LinearLayout>
 
-            </RelativeLayout>
-        </ScrollView>
+        </LinearLayout>
+    </LinearLayout>
 
 </androidx.drawerlayout.widget.DrawerLayout>

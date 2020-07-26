@@ -22,29 +22,44 @@
             android:src="@drawable/umeed_logo" />
 
         <TextView
-            android:id="@+id/tvCategoryTitle"
+            android:id="@+id/tvMeetingId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@id/ivService"
             android:padding="8dp"
             android:paddingEnd="20dp"
-            android:text="Name"
+            android:text="Meeting"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/tvmobileNumber"
+            android:id="@+id/tvMeetingDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvCategoryTitle"
+            android:layout_below="@+id/tvMeetingId"
             android:layout_centerVertical="true"
-            android:layout_marginStart="109dp"
+            android:layout_marginStart="73dp"
             android:layout_marginTop="-38dp"
             android:layout_toEndOf="@id/ivService"
             android:padding="8dp"
             android:paddingEnd="20dp"
-            android:text="Mobile Number"
+            android:text="Meeting Date"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tvMeetingAttendanceTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvMeetingId"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="-38dp"
+            android:layout_toEndOf="@id/tvMeetingDate"
+            android:padding="8dp"
+            android:paddingEnd="20dp"
+            android:text="20"
             android:textColor="@color/black"
             android:textSize="12sp" />
 

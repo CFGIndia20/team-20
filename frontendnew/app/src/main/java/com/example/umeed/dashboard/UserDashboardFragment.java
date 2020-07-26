@@ -31,6 +31,9 @@ import android.widget.Toast;
 import com.example.umeed.MainActivity;
 import com.example.umeed.R;
 import com.example.umeed.data.PrefManager;
+import com.example.umeed.data.UmeedRepository;
+import com.example.umeed.data.model.request.AttendanceRequestModel;
+import com.example.umeed.data.model.response.AttendanceResponseModel;
 import com.example.umeed.data.model.response.ProfileDetailsResponseModel;
 import com.example.umeed.profile.ProfileViewModel;
 import com.github.mikephil.charting.charts.PieChart;
@@ -54,12 +57,16 @@ public class UserDashboardFragment extends Fragment implements NavigationView.On
     ArrayList<ArrayList<Entry>> values = new ArrayList<ArrayList<Entry>>();
     private NavController navController;
     private DrawerLayout drawerLayout;
+    private UmeedRepository umeedRepository;
     public NavigationView navigationDrawerView;
     private CircularProgressButton button;
     private CircularProgressButton experienceTestButton;
     private CircularProgressButton profileButton;
     private CircularProgressButton attendanceManagementButton;
-
+    private CircularProgressButton meetingButton;
+    private CircularProgressButton createMeetingButton;
+    private AttendanceRequestModel attendanceRequestModel;
+    private AttendanceViewModel attendanceViewModel;
     ListView dasboardListView;
     //    ArrayList<Entry> values = new ArrayList<>();
     @Override
@@ -78,6 +85,8 @@ public class UserDashboardFragment extends Fragment implements NavigationView.On
         values.get(0).add(new Entry(25f,0));
         values.get(0).add(new Entry(75f,1));
         button=root.findViewById(R.id.managerTest);
+        meetingButton=root.findViewById(R.id.getMeetings);
+        createMeetingButton=root.findViewById(R.id.createMeeting);
         values.get(1).add(new Entry(35f,0));
         values.get(1).add(new Entry(65f,1));
         profileButton=root.findViewById(R.id.profileDetails);
@@ -99,6 +108,7 @@ public class UserDashboardFragment extends Fragment implements NavigationView.On
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         drawerLayout = view.findViewById(R.id.drawer_layout);
+        umeedRepository=new UmeedRepository();
         navigationDrawerView = view.findViewById(R.id.side_nav_view);
         experienceTestButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,6 +129,19 @@ public class UserDashboardFragment extends Fragment implements NavigationView.On
                 Navigation.findNavController(view).navigate(UserDashboardFragmentDirections.actionDashBoardFragmentToAttendanceManagement());
             }
         });
+        meetingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(UserDashboardFragmentDirections.actionDashBoardFragmentToGetMeeting());
+            }
+        });
+        createMeetingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(UserDashboardFragmentDirections.actionDashBoardFragmentToCreateMeeting());
+            }
+        });
+        attendanceViewModel=new AttendanceViewModel();
 //        set top level destinations to show drawer handle instead of back button
         profileButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,8 +153,18 @@ public class UserDashboardFragment extends Fragment implements NavigationView.On
                     public void onChanged(ProfileDetailsResponseModel profileDetailsResponseModel) {
                         if(profileDetailsResponseModel!=null){
                            // UserDashboardFragmentDirections.ActionDashBoardFragmentToProfileFragment action2=UserDashboardFragmentDirections
-                            UserDashboardFragmentDirections.ActionDashBoardFragmentToProfileFragment action = UserDashboardFragmentDirections.actionDashBoardFragmentToProfileFragment(profileDetailsResponseModel.getData().getMessage().getUserAcc().getFirstName(),profileDetailsResponseModel.getData().getMessage().getArea(),profileDetailsResponseModel.getData().getMessage().getSkills(),profileDetailsResponseModel.getData().getMessage().getImage(),"100");
-                            Navigation.findNavController(view).navigate(action);
+                            attendanceViewModel.getAttendance("Token "+"805f829c139dd6359617714e7ed355db59465a13",profileDetailsResponseModel.getData().getMessage().getUserAcc().getUsername()).observe(getViewLifecycleOwner(), new Observer<AttendanceResponseModel>() {
+                                @Override
+                                public void onChanged(AttendanceResponseModel attendanceResponseModel) {
+                                    if(attendanceResponseModel!=null){
+                                        UserDashboardFragmentDirections.ActionDashBoardFragmentToProfileFragment action = UserDashboardFragmentDirections.actionDashBoardFragmentToProfileFragment(profileDetailsResponseModel.getData().getMessage().getUserAcc().getFirstName(),profileDetailsResponseModel.getData().getMessage().getArea(),profileDetailsResponseModel.getData().getMessage().getSkills(),profileDetailsResponseModel.getData().getMessage().getImage(),String.valueOf(attendanceResponseModel.getData().getMessage().getAttended()/attendanceResponseModel.getData().getMessage().getTotal()));
+                                        Navigation.findNavController(view).navigate(action);
+                                    }else{
+                                        Toast.makeText(getContext(),"No details",Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+
                         }else{
                             Toast.makeText(getContext(),"No details",Toast.LENGTH_SHORT).show();
                         }

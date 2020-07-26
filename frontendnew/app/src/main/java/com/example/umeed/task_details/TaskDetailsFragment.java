@@ -1,7 +1,9 @@
 package com.example.umeed.task_details;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,9 +25,12 @@ import com.github.mikephil.charting.formatter.PercentFormatter;
 
 import java.util.ArrayList;
 
+import br.com.simplepass.loadingbutton.customViews.CircularProgressButton;
+
 public class TaskDetailsFragment extends Fragment {
     String task = "Task 1";
     String progress = "25/100";
+    private CircularProgressButton button;
     ArrayList<Entry> values = new ArrayList<Entry>();
     TextView detailsTextView, detailsProgress;
     PieChart detailsPieChart;
@@ -42,6 +47,7 @@ public class TaskDetailsFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_task_details, container, false);
         values.add(new Entry(25f,0));
         values.add(new Entry(75f,1));
+        button=root.findViewById(R.id.uploadPhoto);
         detailsTextView = (TextView) root.findViewById(R.id.detailsTextView);
         detailsTextView.setText(task);
         detailsProgress = (TextView) root.findViewById(R.id.detailsProgress);
@@ -93,9 +99,5 @@ public class TaskDetailsFragment extends Fragment {
             icon.setImageResource(images[position]);
             return convertView;
         }
-    }
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
     }
 }

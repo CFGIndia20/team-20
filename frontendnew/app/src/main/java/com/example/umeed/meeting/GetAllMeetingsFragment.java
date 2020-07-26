@@ -1,47 +1,45 @@
-package com.example.umeed.manager_user;
+package com.example.umeed.meeting;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.umeed.R;
+import com.example.umeed.data.model.response.GetAllMeetingsResponseModel;
 import com.example.umeed.data.model.response.ManagerUserResponseModel;
+import com.example.umeed.manager_user.ManagerFragment;
+import com.example.umeed.manager_user.ManagerUserAdapter;
+import com.example.umeed.manager_user.ManagerUserViewModel;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
-public class ManagerFragment extends Fragment {
-    int addressId;
+public class GetAllMeetingsFragment extends Fragment {
     private RecyclerView rvSubcategory;
-    private ManagerUserViewModel subcategoryViewModel;
-    private ArrayList<ManagerUserResponseModel.Data.Message> subcategoryModels;
-    private ManagerUserAdapter subcategoryAdapter;
+    private GetAllMeetingsViewModel subcategoryViewModel;
+    private ArrayList<GetAllMeetingsResponseModel.Data.Message> subcategoryModels;
+    private GetAllMeetingsAdapter subcategoryAdapter;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 //        subcategoryViewModel = ViewModelProviders.of(requireActivity()).get(SubcategoryViewModel.class);
-        return inflater.inflate(R.layout.fragment_manager_user, container, false);
+        return inflater.inflate(R.layout.fragment_meeting, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        rvSubcategory = view.findViewById(R.id.rvSubcategory);
+        rvSubcategory = view.findViewById(R.id.rvMeeting);
 //        ibBack = view.findViewById(R.id.ibBack);
 //        tvMainCategoryTitle = view.findViewById(R.id.tvMainCategoryTitle);
 //        progressBar = view.findViewById(R.id.progressBar);
@@ -50,7 +48,7 @@ public class ManagerFragment extends Fragment {
 //        mainCategoryId = subcategoryFragmentArgs.getMainCategoryId();
 //        id = subcategoryFragmentArgs.getId();
 //        Log.d("Ahelper", String.valueOf(id));
-        subcategoryViewModel = ViewModelProviders.of(requireActivity()).get(ManagerUserViewModel.class);
+        subcategoryViewModel = ViewModelProviders.of(requireActivity()).get(GetAllMeetingsViewModel.class);
         rvSubcategory.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -62,14 +60,15 @@ public class ManagerFragment extends Fragment {
         rvSubcategory.addItemDecoration(dividerItemDecoration);
 
         subcategoryModels = new ArrayList<>();
-        subcategoryAdapter = new ManagerUserAdapter(getActivity(), subcategoryModels);
+        subcategoryAdapter = new GetAllMeetingsAdapter(getActivity(),subcategoryModels);
         rvSubcategory.setAdapter(subcategoryAdapter);
 //        progressBar.setVisibility(View.VISIBLE);
-        subcategoryViewModel.getSubcategoryModelLiveData("805f829c139dd6359617714e7ed355db59465a13").observe(getViewLifecycleOwner(), new Observer<ManagerUserResponseModel>() {
+        subcategoryViewModel.getSubcategoryModelLiveData("805f829c139dd6359617714e7ed355db59465a13").observe(getViewLifecycleOwner(), new Observer<GetAllMeetingsResponseModel>() {
             @Override
-            public void onChanged(ManagerUserResponseModel managerUserResponseModel) {
-                ManagerFragment.this.subcategoryModels.clear();
-                ManagerFragment.this.subcategoryModels.addAll(managerUserResponseModel.getData().getMessage());
+            public void onChanged(GetAllMeetingsResponseModel getAllMeetingsResponseModel) {
+
+                GetAllMeetingsFragment.this.subcategoryModels.clear();
+                GetAllMeetingsFragment.this.subcategoryModels.addAll(getAllMeetingsResponseModel.getData().getMessage());
                 subcategoryAdapter.notifyDataSetChanged();
             }
         });

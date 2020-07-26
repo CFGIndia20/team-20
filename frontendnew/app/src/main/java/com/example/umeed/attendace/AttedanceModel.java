@@ -1,17 +1,16 @@
-package com.example.umeed.manager_user;
+package com.example.umeed.attendace;
 
 import android.media.Image;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class ManagerUserModel {
-
+public class AttedanceModel {
 
     private String name;
     private int image;
 
 
-    public ManagerUserModel(String name, int image) {
+    public AttedanceModel(String name, int image) {
         this.name = name;
         this.image = image;
     }

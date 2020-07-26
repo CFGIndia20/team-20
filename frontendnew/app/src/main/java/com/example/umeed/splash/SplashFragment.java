@@ -12,7 +12,10 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
+import com.example.umeed.MainActivity;
 import com.example.umeed.R;
+import com.example.umeed.data.PrefManager;
+import com.example.umeed.splash.SplashViewModel;
 
 public class SplashFragment extends Fragment {
 
@@ -28,11 +31,24 @@ public class SplashFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        PrefManager.initInstance(getContext());
         splashViewModel.startTimer();
-        if(splashViewModel.isTimerDone){
-//            Navigation.findNavController(view).navigate(SplashFragmentDirections.actionSplashFragmentToLoginFragment());
-        }
+        splashViewModel.isTimerDone.observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if (aBoolean) {
+                    if (PrefManager.getInstance().isLoggedIn()) {
+//                        if (PrefManager.getInstance().isLocationScreenDone()) {
+//                            Navigation.findNavController(view).navigate(SplashFragmentDirections.actionSplashFragmentToBottomNavigationFragment(null));
+//                        } else {
+                        Navigation.findNavController(view).navigate(SplashFragmentDirections.actionSplashFragmentToDashBoardFragment());
 
+//                        }
+                    } else {
+                        Navigation.findNavController(view).navigate(SplashFragmentDirections.actionSplashFragmentToLoginFragment());
+                    }
+                }
+            }
+        });
     }
 }

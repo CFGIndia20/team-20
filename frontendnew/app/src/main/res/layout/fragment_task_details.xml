@@ -32,11 +32,20 @@
             android:textSize="40sp"/>
 
         <GridView
-            android:padding="10dp"
+            android:id="@+id/detailsGridView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="279dp"
             android:numColumns="2"
-            android:id="@+id/detailsGridView"/>
+            android:padding="10dp" />
+
+        <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/uploadPhoto"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/pink_button"
+            android:text="UPLOAD PHOTO"
+            ></br.com.simplepass.loadingbutton.customViews.CircularProgressButton>
 
     </LinearLayout>
 

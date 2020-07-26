@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!--            <androidx.appcompat.widget.AppCompatImageButton-->
+        <!--                android:id="@+id/ibBack"-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="24dp"-->
+        <!--                android:layout_marginTop="16dp"-->
+        <!--                android:backgroundTint="@android:color/transparent"-->
+        <!--                android:src="@drawable/ic_action_arrow_left" />-->
+
+        <TextView
+            android:id="@+id/tvMeeting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="13dp"
+            android:paddingLeft="2dp"
+            android:text="Title"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvMeeting"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!--    <ProgressBar-->
+    <!--        android:id="@+id/progressBar"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_centerHorizontal="true"-->
+    <!--        android:layout_centerVertical="true"-->
+    <!--        android:indeterminateTint="@color/colorPrimary"-->
+    <!--        android:visibility="gone" />-->
+</RelativeLayout>

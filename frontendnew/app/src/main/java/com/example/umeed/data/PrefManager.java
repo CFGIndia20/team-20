@@ -35,6 +35,10 @@ public class PrefManager {
     public static final String IMAGE = "image";
     public static final String WORKER_DOB = "worker_dob";
     private static final String SUBCAT_LIST = "subcat_list";
+
+
+
+    private static final String AUTH_TOKEN="auth-token";
     //    private static final String MOBILE_NUMBER = "user_id";
     private static PrefManager instance;
     private SharedPreferences preferences;
@@ -65,7 +69,12 @@ public class PrefManager {
         setDeviceTokenIfNotExist();
         return preferences.getString(DEVICE_TOKEN, "");
     }
-
+    public void setAuthToken(String token){
+        preferences.edit().putString(AUTH_TOKEN,token).apply();
+    }
+    public String getAuthToken() {
+        return preferences.getString(AUTH_TOKEN,"");
+    }
     public boolean isLoggedIn() {
         return preferences.getBoolean(IS_LOGGED_IN, false);
     }

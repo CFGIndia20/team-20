@@ -16,5 +16,9 @@ class ProgressSerializer(serializers.ModelSerializer):
         model = DailyProgress
         fields = '__all__'
 
-
+class MeetingSerializer(serializers.ModelSerializer):
+    attended_users=UserSerializer(read_only=True,many=True)
+    class Meta:
+        model= Meeting
+        fields='__all__'
     

@@ -10,12 +10,14 @@ from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from users.serializers import UserSerializer
 
+#dummy test endpoint 
 @csrf_exempt
 @api_view(['POST'])
 @permission_classes((AllowAny,))
 def dummy_view(request):
     return Response("OK",status=HTTP_200_OK)
 
+#endpoint for user login
 @csrf_exempt
 @api_view(['POST'])
 @permission_classes((AllowAny,))
@@ -28,6 +30,7 @@ def user_login(request): #login a user
     token,x=Token.objects.get_or_create(user=u)
     return Response({'status':'success','data':{'message':token.key}},status=HTTP_200_OK)
 
+#endpoint for user signup
 @csrf_exempt
 @api_view(['POST'])
 @permission_classes((AllowAny,))
@@ -45,6 +48,7 @@ def user_register(request):
     UserProfile.objects.create(user_acc=user_obj,skills=skills,area=area)
     return Response({'status':'success','data':{'message':'Registration Successful'}},status=HTTP_200_OK)
 
+#endpoint for manager login
 @csrf_exempt
 @api_view(['POST'])
 @permission_classes((AllowAny,))
@@ -56,10 +60,12 @@ def manager_login(request):
         return Response({'status':'failure','data':{'message':'wrong username or password'}},status=HTTP_400_BAD_REQUEST)
     linked_manager_obj=Manager.objects.get(user_acc=u)
     profile_status="Completed"
+    token,x=Token.objects.get_or_create(user=u)
     if linked_manager_obj.unset==True:
         profile_status="Incomplete"
-    return Response({'status':'success','data':{'message':profile_status}},status=HTTP_200_OK)
+    return Response({'status':'success','data':{'message':token.key}},status=HTTP_200_OK)
 
+#endpoint for manager to change account details after first signup
 @csrf_exempt
 @api_view(['POST'])
 @permission_classes((AllowAny,))
@@ -78,6 +84,7 @@ def manager_register(request):
     u.save()
     return Response({'status':'success','data':{'message':'Completed'}},status=HTTP_200_OK)
 
+#manager logout
 @csrf_exempt
 @api_view(['POST'])
 @permission_classes((AllowAny,))
@@ -86,6 +93,7 @@ def manager_logout(request):
     logout(request)
     Response({'status':'success','data':{'message':'Logged out'}},status=HTTP_200_OK)
 
+#user logout
 @csrf_exempt
 @api_view(['POST'])
 @permission_classes((AllowAny,))
@@ -95,7 +103,7 @@ def user_logout(request):
     Response({'status':'success','data':{'message':'Logged out'}},status=HTTP_200_OK)
 
 # Fetch All User profiles
-@api_view(['GET'])
+@api_view(['GET','POST'])
 def fetch_users(request):
     #fetch all the user objects
     user_details = UserProfile.objects.all()
